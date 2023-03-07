@@ -35,9 +35,9 @@ describe(`GET ${settlementDateRoute}`, () => {
         expect(response.body).toMatchObject(expectedResponse);
     })
 
-    test("should respond with error when `delay` param is not set", async () => {
+    // This test should be failing because of defect in app's code - status code 500 is returned and error is not handled
+    test("should respond with `ok: false` and error message when `delay` param is not set", async () => {
         const response = await request(app).get(`${settlementDateRoute}?initialDate=${initialDate}`);
-        // BETTER BE DONE: add error handling for this in app's code
-        expect(response.statusCode).toBe(500); 
+        expect(response.body.ok).toBe(false);
     })
 })

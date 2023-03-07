@@ -2,9 +2,10 @@ const app = require("../index.js");
 const request = require("supertest");
 
 const businessDateRoute = "/api/v1/isBusinessDay";
-const date = "2016-08-24"
 
 describe(`GET ${businessDateRoute}`, () => {
+    
+    const date = "2016-08-24";
 
     test("should respond with a 200 status code and `results: true` for a business date in default US country", async () => {
         const response = await request(app).get(`${businessDateRoute}?date=${date}`);
@@ -38,7 +39,7 @@ describe(`GET ${businessDateRoute}`, () => {
         expect(response.body.results).toBe(false);
     })
 
-    test("should return error message when `date` URL param is not passed", async () => {
+    test("should respond with error message when `date` URL param is not passed", async () => {
         const dateErrorMsg = "A valid date is required";
         const response = await request(app).get(businessDateRoute);
         expect(response.statusCode).toBe(200);
